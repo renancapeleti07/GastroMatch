@@ -1,9 +1,19 @@
 from fastapi import FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 import mysql.connector
 from pydantic import BaseModel
 from typing import Optional
 
 app = FastAPI(title="GastroMatch API", version="1.0")
+
+# Configuração do CORS (Permite a comunicação com o Front-end)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Permite qualquer origem durante o desenvolvimento
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todos os cabeçalhos
+)
 
 # Função para obter conexão com o MySQL
 def get_db_connection():
